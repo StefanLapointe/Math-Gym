@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "math-gym": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "frontend:build:production"
+              "buildTarget": "math-gym:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "math-gym:build:development"
             }
           },
           "defaultConfiguration": "development"

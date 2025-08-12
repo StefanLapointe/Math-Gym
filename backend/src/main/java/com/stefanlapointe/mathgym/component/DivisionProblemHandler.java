@@ -2,9 +2,11 @@ package com.stefanlapointe.mathgym.component;
 
 import com.stefanlapointe.mathgym.domain.MultiplicationDivisionFact;
 import com.stefanlapointe.mathgym.domain.ProblemHandler;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+@Component("division")
 public class DivisionProblemHandler implements ProblemHandler {
     @Override
     public String generateStatement(long seed) {

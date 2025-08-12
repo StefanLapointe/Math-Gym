@@ -1,2 +1,8 @@
 <h1>Math-Gym</h1>
-<p>Problem types: {{problem}}</p>
+<ul>
+    @for (problemType of problemTypes; track $index) {
+        <li>
+            <app-problem-type-button [problemType]="problemType"/>
+        </li>
+    }
+</ul>

@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
+import { ProblemTypeButton } from '../../components/problem-type-button/problem-type-button';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [ProblemTypeButton],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
 export class Home {
-  problem: string;
+  problemTypes: string[];
   constructor() {
-    this.problem = "loading...";
+    this.problemTypes = [];
     fetch("http://localhost:8080/api/list")
-      .then(response => response.text())
-      .then(text => {
-        this.problem = text;
+      .then(response => response.json())
+      .then(json => {
+        this.problemTypes = json;
       });
   }
 }

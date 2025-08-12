@@ -7,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './home.css'
 })
 export class Home {
-
+  problem: string;
+  constructor() {
+    this.problem = "loading...";
+    fetch("http://localhost:8080/api/list")
+      .then(response => response.text())
+      .then(text => {
+        this.problem = text;
+      });
+  }
 }

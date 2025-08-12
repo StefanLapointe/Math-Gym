@@ -1,6 +1,5 @@
 package com.stefanlapointe.mathgym.component;
 
-import com.stefanlapointe.mathgym.domain.AdditionSubtractionFact;
 import com.stefanlapointe.mathgym.domain.MultiplicationDivisionFact;
 import com.stefanlapointe.mathgym.domain.ProblemHandler;
 import org.springframework.stereotype.Component;

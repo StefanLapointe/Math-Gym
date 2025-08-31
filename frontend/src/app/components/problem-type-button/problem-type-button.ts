@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input, } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ProblemTypeButton {
   private router = inject(Router);
-  @Input() problemType: string = "";
+  problemType = input("");
   showProblem() {
     this.router.navigate(["/train", this.problemType]);
   }

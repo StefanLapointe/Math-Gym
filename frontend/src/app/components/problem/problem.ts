@@ -1,5 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-problem',
@@ -28,7 +29,7 @@ export class Problem implements OnInit {
     answerBox.value = "";
     this.correction = "";
     this.corrected.set(false);
-    fetch("http://localhost:8080/api/generate", {
+    fetch(`${environment.apiUrl}/api/generate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -48,7 +49,7 @@ export class Problem implements OnInit {
       seed: this.seed,
       response: answerBox.value
     }
-    fetch("http://localhost:8080/api/evaluate", {
+    fetch(`${environment.apiUrl}/api/evaluate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

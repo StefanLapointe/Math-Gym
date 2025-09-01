@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProblemTypeButton } from '../../components/problem-type-button/problem-type-button';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ export class Home {
   problemTypes: string[];
   constructor() {
     this.problemTypes = [];
-    fetch("http://localhost:8080/api/list")
+    fetch(`${environment.apiUrl}/api/list`)
       .then(response => response.json())
       .then(json => {
         this.problemTypes = json;

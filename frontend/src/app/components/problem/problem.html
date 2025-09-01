@@ -1,1 +1,7 @@
+<p>Score: {{correct}} / {{completed}}</p>
 <p>{{statement}}</p>
+<input id="answer-box" placeholder="answer">
+<button (click)="corrected() ? next() : evaluate()">
+    {{buttonText()}}
+</button>
+<p>{{correction}}</p>

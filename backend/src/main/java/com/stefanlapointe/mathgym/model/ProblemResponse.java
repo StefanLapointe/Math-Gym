@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class ProblemResponse {
     private String problemType;
-    private long seed;
+    private int seed;
     private String response;
 }

@@ -25,7 +25,7 @@ public class ProblemService {
     public ProblemStatement generate(String problemType) {
         ProblemHandler problemHandler = problemHandlerMap.get(problemType);
         Random random = new Random();
-        long seed = random.nextLong();
+        int seed = random.nextInt();
         String statement = problemHandler.generateStatement(seed);
         return new ProblemStatement(seed, statement);
     }

@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class ProblemStatement {
-    private long seed;
+    private int seed;
     private String statement;
 }

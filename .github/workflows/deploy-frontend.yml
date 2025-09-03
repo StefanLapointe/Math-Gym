@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'frontend/**'
+      - '.github/workflows/deploy-frontend.yml'
 jobs:
   deploy:
     runs-on: ubuntu-latest

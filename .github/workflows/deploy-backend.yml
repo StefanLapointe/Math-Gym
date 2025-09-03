@@ -1,0 +1,48 @@
+name: Deploy backend
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/deploy-backend.yml'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout backend
+        uses: actions/checkout@v5
+        with:
+          sparse-checkout: |
+            ./backend
+      - name: Setup Java JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
+          cache-dependency-path: |
+            backend/*.gradle*
+            backend/**/gradle-wrapper.properties
+      - name: Build backend
+        working-directory: './backend'
+        run: |
+          ./gradlew bootBuildImage --imageName=mathgym --no-daemon
+          docker save -o mathgym.tar mathgym
+      - name: Copy files to temporary location on server
+        uses: appleboy/scp-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
+          source: './backend/mathgym.tar'
+          target: '~'
+      - name: Replace old files with new files
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
+          script: |
+            docker stop mathgym || true
+            docker rm mathgym || true
+            docker load -i ~/mathgym.tar
+            docker run --name mathgym -p 8080:8080 -d --restart=unless-stopped -m 600M mathgym

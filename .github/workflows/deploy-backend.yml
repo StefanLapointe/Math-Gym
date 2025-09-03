@@ -23,7 +23,7 @@ jobs:
             backend/*.gradle*
             backend/**/gradle-wrapper.properties
       - name: Build backend
-        working-directory: './backend'
+        working-directory: 'backend'
         run: |
           ./gradlew bootBuildImage --imageName=mathgym --no-daemon
           docker save -o mathgym.tar mathgym
@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.KEY }}
           source: 'backend/mathgym.tar'
           target: '~'
-          strip_components: 2
+          strip_components: 1
       - name: Replace old files with new files
         uses: appleboy/ssh-action@v1.2.2
         with:

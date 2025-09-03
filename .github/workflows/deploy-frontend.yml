@@ -1,0 +1,43 @@
+name: Deploy frontend
+on:
+  push:
+    paths:
+      - 'frontend/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout HTML and assets
+        uses: actions/checkout@v5
+        with:
+          sparse-checkout: |
+            frontend
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.4'
+          cache: 'npm'
+      - name: Build frontend
+        working-directory: './frontend'
+        run: |
+          npm install
+          npx ng build --configuration production
+      - name: Copy files to temporary location on server
+        uses: appleboy/scp-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
+          source: 'frontend/dist/math-gym/browser/*'
+          target: '~/math-gym.stefanlapointe.com-new'
+      - name: Replace old files with new files
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
+          script: |
+            sudo chown root:root '~/math-gym.stefanlapointe.com-new'
+            sudo mv '/var/www/math-gym.stefanlapointe.com' '~/math-gym.stefanlapointe.com-old'
+            sudo mv '~/math-gym.stefanlapointe.com-new' '/var/www/math-gym.stefanlapointe.com'
+            sudo rm -rf '~/math-gym.stefanlapointe.com-old'

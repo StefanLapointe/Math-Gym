@@ -1,27 +1,32 @@
 # Math-Gym
 
-As of writing this, this is a work-in-progress project that is meant to eventually exist as a full-stack application on mathgym.stefanlapointe.com where you can practice math problems.
+Math-Gym ([math-gym.stefanlapointe.com](https://math-gym.stefanlapointe.com)) is a website for doing math practice problems.
 
 ## Current features
 
-- API for generating and evaluating arithmetic problems.
+- Arithmetic problems
 
 ## Planned features
 
-- Frontend
-- Algebra problems
-- Calculus problems
-- Account creation
-- Progress tracking
+- New problem types:
+  - Algebra
+  - Calculus
+  - Number theory
+  - Graph theory
+- Accounts:
+  - Permanent progress
+  - Custom practice routines
 
 ## Design
 
-The backend responds to requests with ProblemController, which is annotated with @RestController.
+### Tech stack
 
-Problem controller delegates problem generation and evaluation to ProblemService, which is annotated with @Service.
+- The frontend is Angular and the backend is Dockerized Spring Boot.
+- The frontend and backend are both deployed to my Oracle Cloud VM instance using GitHub Actions.
+- NGINX acts as the web server for the frontend and a reverse proxy for the backend.
 
-Service has access to every implementation of ProblemHandler via dependency injection. Each implementation of ProblemHandler is able to generate and evaluate a specific type of math problem. For example, AdditionProblemHandler knows how to generate and evaluate addition problems.
+### Backend architecture
 
-Every problem has a specific seed which can be used to determinstically regenerate the problem. This is done to allow the client to request for a solution to be evaluated without having to send back the whole problem and without the server having to be stateful or make use of persistence.
-
-Classes with names ending in "Fact" exist to help implementations of ProblemHandler to avoid code repetition. For example, AdditionProblemHandler uses the class AdditionSubtractio fact to pseudorandomly generate a representation of an equation of the form `operand1 + operand2 == sum` from a seed. This means that the logic for generating such an equation does not have to be duplicated between AdditionProblemHandler's generation and evaluation methods. Furthermore, an equation of the form `operand1 + operand2 = sum` can be rearranged into the form `sum - operand2 = operand1`, and so SubtractionProblemHandler is also able to make use of the AdditionSubtractionFact class, hence the name.
+- Problem generation responses include a seed that can be used to re-generate the problem, which is to be included in problem correction requests. This allows the math problem API to simultaneously keep answer correction on the server side, avoid having any state related to active problems, and avoid persisting any data related to specific problems.
+- `ProblemService` uses dependency injection to obtain a map of all `ProblemHandler` implementations. This means that all you have to do to add a new problem type is create the class and anotate it with `@Component("problem type goes here")`. Nothing else needs to be modified.
+- Classes ending in `Fact` are used to avoid code duplication for dual problem types, such as `AdditionSubtractionFact`, which is used by both `AdditionProblemHandler` and `SubtractionProblemHandler`.

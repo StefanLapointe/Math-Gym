@@ -32,6 +32,7 @@ jobs:
           key: ${{ secrets.KEY }}
           source: 'frontend/dist/math-gym/browser/*'
           target: '~/math-gym.stefanlapointe.com-new'
+          strip_components: 4
       - name: Replace old files with new files
         uses: appleboy/ssh-action@v1.2.2
         with:

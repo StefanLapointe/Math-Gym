@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.KEY }}
           source: './backend/mathgym.tar'
           target: '~'
-          strip_components: 1
+          strip_components: 2
       - name: Replace old files with new files
         uses: appleboy/ssh-action@v1.2.2
         with:

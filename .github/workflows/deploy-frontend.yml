@@ -39,6 +39,6 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             sudo chown root:root '~/math-gym.stefanlapointe.com-new'
-            sudo mv '/var/www/math-gym.stefanlapointe.com' '~/math-gym.stefanlapointe.com-old'
-            sudo mv '~/math-gym.stefanlapointe.com-new' '/var/www/math-gym.stefanlapointe.com'
-            sudo rm -rf '~/math-gym.stefanlapointe.com-old'
+            sudo mv /var/www/math-gym.stefanlapointe.com ~/math-gym.stefanlapointe.com-old
+            sudo mv ~/math-gym.stefanlapointe.com-new /var/www/math-gym.stefanlapointe.com
+            sudo rm -rf ~/math-gym.stefanlapointe.com-old

@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout HTML and assets
+      - name: Checkout frontend
         uses: actions/checkout@v5
         with:
           sparse-checkout: |

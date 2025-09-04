@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProblemTypeButton } from '../../components/problem-type-button/problem-type-button';
-import { environment } from '../../../environments/environment';
-import { Header } from "../../components/header/header";
-import { Footer } from "../../components/footer/footer";
+import { ProblemApi } from '../../math-problems/problem-api';
 
 @Component({
   selector: 'app-home',
@@ -11,13 +9,11 @@ import { Footer } from "../../components/footer/footer";
   styleUrl: './home.css'
 })
 export class Home {
-  problemTypes: string[];
+  problemTypes: string[] = [];
+  problemApi = inject(ProblemApi);
   constructor() {
-    this.problemTypes = [];
-    fetch(`${environment.apiUrl}/api/list`)
-      .then(response => response.json())
-      .then(json => {
-        this.problemTypes = json;
-      });
+    this.problemApi.listTypes().subscribe(problemTypes => {
+      this.problemTypes = problemTypes;
+    });
   }
 }

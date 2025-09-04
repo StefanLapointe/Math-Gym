@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ProblemTypeButton } from '../../components/problem-type-button/problem-type-button';
 import { environment } from '../../../environments/environment';
+import { Header } from "../../components/header/header";
+import { Footer } from "../../components/footer/footer";
 
 @Component({
   selector: 'app-home',

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
-import { Train } from './pages/train/train';
+import { TrainingPage } from './math-problems/training-page/training-page';
 
 export const routes: Routes = [
     {path: "", component: Home},
-    {path: "train/:problemType", component: Train}
+    {path: "training/:problemType", component: TrainingPage}
 ];

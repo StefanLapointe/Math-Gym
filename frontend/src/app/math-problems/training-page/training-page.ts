@@ -1,14 +1,14 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProblemApi } from '../../math-problems/problem-api';
+import { ProblemApi } from '../problem-api';
 
 @Component({
-  selector: 'app-train',
+  selector: 'app-training-page',
   imports: [],
-  templateUrl: './train.html',
-  styleUrl: './train.css'
+  templateUrl: './training-page.html',
+  styleUrl: './training-page.css'
 })
-export class Train implements OnInit {
+export class TrainingPage implements OnInit {
   statement = signal("Loading...");
   private seed = 0;
   private route = inject(ActivatedRoute);

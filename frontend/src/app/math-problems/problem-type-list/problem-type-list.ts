@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProblemTypeButton } from "../../components/problem-type-button/problem-type-button";
+import { ProblemTypeButton } from "../problem-type-button/problem-type-button";
 import { ProblemApi } from '../problem-api';
 
 @Component({

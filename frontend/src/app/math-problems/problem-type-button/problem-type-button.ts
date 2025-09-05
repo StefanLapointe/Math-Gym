@@ -11,6 +11,6 @@ export class ProblemTypeButton {
   private router = inject(Router);
   problemType = input("");
   showProblem() {
-    this.router.navigate(["/train", this.problemType()]);
+    this.router.navigate(["/training", this.problemType()]);
   }
 }

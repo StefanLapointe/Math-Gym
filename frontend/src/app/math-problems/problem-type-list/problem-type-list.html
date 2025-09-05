@@ -1,0 +1,7 @@
+<ul>
+    @for (problemType of problemTypes; track $index) {
+        <li>
+            <app-problem-type-button [problemType]="problemType"/>
+        </li>
+    }
+</ul>

@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from "./layout/header/header";
 import { Footer } from "./layout/footer/footer";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,9 @@ import { Footer } from "./layout/footer/footer";
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-
+export class App implements OnInit {
+  private readonly http = inject(HttpClient);
+  ngOnInit() {
+    this.http.get<any>("/api/csrf").subscribe();
+  }
 }

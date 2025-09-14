@@ -11,7 +11,7 @@ import { ProblemApi } from '../problem-api';
 export class TrainingPage implements OnInit {
   statement = signal("Loading...");
   private seed = 0;
-  private route = inject(ActivatedRoute);
+  private readonly route = inject(ActivatedRoute);
   private problemType = "";
   correction = "";
   corrected = signal(false);
@@ -19,7 +19,7 @@ export class TrainingPage implements OnInit {
   completed = signal(0);
   correct = signal(0);
   problemApi = inject(ProblemApi);
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.params.subscribe(params => {
       this.problemType = params["problemType"];
     })

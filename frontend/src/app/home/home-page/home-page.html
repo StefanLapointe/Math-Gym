@@ -1,3 +1,10 @@
+@if (authState.authenticated()) {
+    <p>Logged in as {{authState.username()}}.</p>
+    <button type="button" (click)="authState.logout()">Log out</button>
+} @else {
+    <p>Logged out.</p>
+    <button type="button" (click)="this.router.navigate(['/login'])">Log in</button>
+}
 <p>Endless mode:</p>
 <app-problem-type-list />
 <p>Custom routines:</p>

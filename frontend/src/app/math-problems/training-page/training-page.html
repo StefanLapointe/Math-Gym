@@ -1,7 +1,12 @@
-<p>Score: {{correct()}} / {{completed()}}</p>
-<p>{{statement()}}</p>
-<input id="answer-box" placeholder="answer">
-<button (click)="corrected() ? next() : submit()">
-    {{buttonText()}}
-</button>
-<p>{{correction}}</p>
+@if (lives() > 0) {
+    <p>Lives: {{lives()}}</p>
+    <p>#{{completed() + 1}}. {{statement()}}</p>
+    <input id="answer-box" placeholder="answer">
+    <button (click)="corrected() ? next() : submit()">
+        {{buttonText()}}
+    </button>
+    <p>{{correction}}</p>
+} @else {
+    <h2>Game over!</h2>
+}
+<p>Score: {{correct()}}</p>

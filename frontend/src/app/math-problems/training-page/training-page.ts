@@ -19,15 +19,17 @@ export class TrainingPage implements OnInit {
   completed = signal(0);
   correct = signal(0);
   problemApi = inject(ProblemApi);
+  protected lives = signal(0);
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.problemType = params["problemType"];
     })
+    this.lives.set(3);
     this.next();
   }
   next() {
-    const answerBox = document.getElementById("answer-box") as HTMLInputElement;
-    answerBox.value = "";
+    const answerBox = document.getElementById("answer-box") as HTMLInputElement | null;
+    if (answerBox != null) answerBox.value = "";
     this.correction = "";
     this.corrected.set(false);
     this.problemApi.generateStatement(this.problemType).subscribe(({statement, seed}) => {
@@ -47,6 +49,7 @@ export class TrainingPage implements OnInit {
         this.corrected.set(true);
         this.completed.update(value =>  value + 1);
         if (correct) this.correct.update(value => value + 1);
+        else this.lives.update(value => value - 1);
       });
   }
 }

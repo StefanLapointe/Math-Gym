@@ -30,6 +30,11 @@ public class ProblemService {
         return new ProblemStatement(seed, statement);
     }
 
+    public String generate(String problemType, int seed) {
+        ProblemHandler problemHandler = problemHandlerMap.get(problemType);
+        return problemHandler.generateStatement(seed);
+    }
+
     public ProblemCorrection evaluate(ProblemResponse problemResponse) {
         String problemType = problemResponse.getProblemType();
         long seed = problemResponse.getSeed();
@@ -45,5 +50,15 @@ public class ProblemService {
             correction = String.format(format, solution);
         }
         return new ProblemCorrection(isCorrect, correction);
+    }
+
+    public boolean isCorrect(String problemType, int seed, String attempt) {
+        ProblemHandler problemHandler = problemHandlerMap.get(problemType);
+        return problemHandler.isCorrect(seed, attempt);
+    }
+
+    public String solve(String problemType, int seed) {
+        ProblemHandler problemHandler = problemHandlerMap.get(problemType);
+        return problemHandler.generateSolution(seed);
     }
 }

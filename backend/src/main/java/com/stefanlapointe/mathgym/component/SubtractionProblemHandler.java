@@ -17,8 +17,8 @@ public class SubtractionProblemHandler implements ProblemHandler {
     }
 
     @Override
-    public boolean isCorrect(long seed, String response) {
-        return Objects.equals(response, generateSolution(seed));
+    public boolean isCorrect(long seed, String attempt) {
+        return Objects.equals(attempt, generateSolution(seed));
     }
 
     @Override

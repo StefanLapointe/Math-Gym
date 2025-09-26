@@ -8,4 +8,5 @@ import lombok.Getter;
 public class GuestSolutionResponse {
     private boolean isCorrect;
     private String correction;
+    private boolean gameOver;
 }

@@ -35,13 +35,11 @@ public class GameController {
 
     @PostMapping("/guest/solution")
     GuestSolutionResponse guestSolution(@RequestBody GuestSolutionRequest guestSolutionRequest) {
-        String problemType = guestSolutionRequest.getProblemType();
+        GameOptions gameOptions = guestSolutionRequest.getGameOptions();
+        int problemNumber = guestSolutionRequest.getProblemNumber();
+        int correctAnswers = guestSolutionRequest.getCorrectAnswers();
         int seed = guestSolutionRequest.getSeed();
         String attempt = guestSolutionRequest.getAttempt();
-        Optional<String> solution = gameService.correct(problemType, seed, attempt);
-        String correction = solution
-                .map(s -> String.format("Incorrect: the correct answer is %s.", s))
-                .orElse("Correct!");
-        return new GuestSolutionResponse(solution.isEmpty(), correction);
+        return gameService.correct(gameOptions, problemNumber, correctAnswers, seed, attempt);
     }
 }

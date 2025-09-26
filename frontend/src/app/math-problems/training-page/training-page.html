@@ -1,12 +1,14 @@
-@if (lives() > 0) {
-    <p>Lives: {{lives()}}</p>
-    <p>#{{completed() + 1}}. {{statement()}}</p>
-    <input id="answer-box" placeholder="answer">
-    <button (click)="corrected() ? next() : submit()">
-        {{buttonText()}}
-    </button>
-    <p>{{correction}}</p>
-} @else {
+@if (gameState.gameOver()) {
     <h2>Game over!</h2>
+} @else {
+    <p>Lives: {{lives()}}</p>
+    <p>#{{gameState.problemNumber()}}. {{gameState.statement()}}</p>
+    <input id="answer-box" placeholder="answer">
+    <button (click)="gameState.waitingForAnswer() ? submit() : next()">
+        {{gameState.waitingForAnswer() ? "Submit" : "Next"}}
+    </button>
+    @if (!gameState.waitingForAnswer()) {
+        <p>{{gameState.correction()}}</p>
+    }
 }
-<p>Score: {{correct()}}</p>
+<p>Score: {{gameState.correctAnswers()}}</p>

@@ -1,6 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProblemApi } from '../problem-api';
+import { GameFacade } from '../game-facade';
+import { GameState } from '../game-state';
 
 @Component({
   selector: 'app-training-page',
@@ -9,47 +10,30 @@ import { ProblemApi } from '../problem-api';
   styleUrl: './training-page.css'
 })
 export class TrainingPage implements OnInit {
-  statement = signal("Loading...");
-  private seed = 0;
   private readonly route = inject(ActivatedRoute);
-  private problemType = "";
-  correction = "";
-  corrected = signal(false);
-  buttonText = computed(() => this.corrected() ? "Next" : "Submit!");
-  completed = signal(0);
-  correct = signal(0);
-  problemApi = inject(ProblemApi);
-  protected lives = signal(0);
+  protected readonly gameFacade = inject(GameFacade);
+  protected readonly gameState = inject(GameState);
+  protected readonly lives = computed(() => {
+    const difference = this.gameState.problemNumber() - this.gameState.correctAnswers();
+    if (this.gameState.waitingForAnswer()) return 4 - difference;
+    return 3 - difference;
+  });
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.problemType = params["problemType"];
-    })
-    this.lives.set(3);
-    this.next();
-  }
-  next() {
-    const answerBox = document.getElementById("answer-box") as HTMLInputElement | null;
-    if (answerBox != null) answerBox.value = "";
-    this.correction = "";
-    this.corrected.set(false);
-    this.problemApi.generateStatement(this.problemType).subscribe(({statement, seed}) => {
-      this.statement.set(statement);
-      this.seed = seed;
+      const gameMode = "endless";
+      const problemType = params["problemType"];
+      this.gameFacade.startNewGame({gameMode, problemType});
+      this.gameFacade.loadNextProblem();
     });
   }
-  submit() {
+  protected next() {
+    this.gameFacade.loadNextProblem();
     const answerBox = document.getElementById("answer-box") as HTMLInputElement;
-    const problemResponse = {
-      problemType: this.problemType,
-      seed: this.seed,
-      response: answerBox.value
-    }
-      this.problemApi.evaluateResponse(problemResponse).subscribe(({correct, correction}) => {
-        this.correction = correction;
-        this.corrected.set(true);
-        this.completed.update(value =>  value + 1);
-        if (correct) this.correct.update(value => value + 1);
-        else this.lives.update(value => value - 1);
-      });
+    answerBox.value = "";
+  }
+  protected submit() {
+    const answerBox = document.getElementById("answer-box") as HTMLInputElement;
+    const attempt = answerBox.value;
+    this.gameFacade.submitAttempt(attempt);
   }
 }

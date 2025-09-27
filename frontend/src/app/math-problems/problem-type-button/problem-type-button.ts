@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class ProblemTypeButton {
   private router = inject(Router);
   problemType = input("");
-  showProblem() {
-    this.router.navigate(["/training", this.problemType()]);
+  startGame() {
+    this.router.navigate(["/training/endless", this.problemType()]);
   }
 }

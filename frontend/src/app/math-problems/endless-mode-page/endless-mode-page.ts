@@ -4,12 +4,12 @@ import { GameFacade } from '../game-facade';
 import { GameState } from '../game-state';
 
 @Component({
-  selector: 'app-training-page',
+  selector: 'app-endless-mode-page',
   imports: [],
-  templateUrl: './training-page.html',
-  styleUrl: './training-page.css'
+  templateUrl: './endless-mode-page.html',
+  styleUrl: './endless-mode-page.css'
 })
-export class TrainingPage implements OnInit {
+export class EndlessModePage implements OnInit {
   private readonly route = inject(ActivatedRoute);
   protected readonly gameFacade = inject(GameFacade);
   protected readonly gameState = inject(GameState);

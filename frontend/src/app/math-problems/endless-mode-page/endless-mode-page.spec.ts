@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrainingPage } from './training-page';
+import { EndlessModePage } from './endless-mode-page';
 
-describe('TrainingPage', () => {
-  let component: TrainingPage;
-  let fixture: ComponentFixture<TrainingPage>;
+describe('EndlessModePage', () => {
+  let component: EndlessModePage;
+  let fixture: ComponentFixture<EndlessModePage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TrainingPage]
+      imports: [EndlessModePage]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TrainingPage);
+    fixture = TestBed.createComponent(EndlessModePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

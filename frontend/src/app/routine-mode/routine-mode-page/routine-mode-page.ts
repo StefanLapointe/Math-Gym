@@ -16,9 +16,12 @@ export class RoutineModePage {
   protected readonly gameState = inject(GameState);
   private readonly routineApi = inject(RoutineApi);
   protected readonly length = signal(0);
+  protected readonly totalAnswers = computed(() => {
+    if (this.gameState.waitingForAnswer()) return this.gameState.problemNumber() - 1;
+    return this.gameState.problemNumber();
+  })
   protected readonly score = computed(() => {
-    const totalAnswers = this.gameState.waitingForAnswer() ? this.gameState.problemNumber() - 1 : this.gameState.problemNumber();
-    return 100 * this.gameState.correctAnswers() / totalAnswers;
+    return 100 * this.gameState.correctAnswers() / this.totalAnswers();
   });
   ngOnInit() {
     this.route.params.subscribe(params => {

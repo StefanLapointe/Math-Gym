@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ProblemTypeList } from "../../math-problems/problem-type-list/problem-type-list";
+import { ProblemTypeList } from "../../endless-mode/problem-type-list/problem-type-list";
 import { AuthState } from '../../auth/auth-state';
 import { Router } from '@angular/router';
 

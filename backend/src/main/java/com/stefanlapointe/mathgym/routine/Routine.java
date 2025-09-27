@@ -1,7 +1,10 @@
 package com.stefanlapointe.mathgym.routine;
 
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class Routine {
     record Component(String problemType, int count) {};
 
@@ -36,7 +39,8 @@ public class Routine {
         return null;
     }
 
-    public int getLength() {
-        return length;
+    List<Component> getComponents() {
+        // This List is immutable
+        return components;
     }
 }

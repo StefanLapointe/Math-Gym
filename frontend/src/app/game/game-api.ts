@@ -8,7 +8,7 @@ export interface EndlessGameOptions {
 
 export interface RoutineGameOptions {
   gameMode: "routine",
-  routineId: number
+  routineId: string
 }
 
 export type GameOptions = EndlessGameOptions | RoutineGameOptions;

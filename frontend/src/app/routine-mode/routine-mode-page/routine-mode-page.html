@@ -1,0 +1,13 @@
+@if (gameState.gameOver()) {
+    <h2>Routine complete!</h2>
+} @else {
+    <p>#{{gameState.problemNumber()}}. {{gameState.statement()}}</p>
+    <input id="answer-box" placeholder="answer">
+    <button (click)="gameState.waitingForAnswer() ? submit() : next()">
+        {{gameState.waitingForAnswer() ? "Submit" : "Next"}}
+    </button>
+    @if (!gameState.waitingForAnswer()) {
+        <p>{{gameState.correction()}}</p>
+    }
+}
+<p>Score: {{gameState.correctAnswers()}}</p>

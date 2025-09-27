@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { ProblemTypeList } from "../../endless-mode/problem-type-list/problem-type-list";
 import { AuthState } from '../../auth/auth-state';
 import { Router } from '@angular/router';
+import { RoutineModeList } from "../../routine-mode/routine-mode-list/routine-mode-list";
 
 @Component({
   selector: 'app-home-page',
-  imports: [ProblemTypeList],
+  imports: [ProblemTypeList, RoutineModeList],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css'
 })

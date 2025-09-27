@@ -24,9 +24,9 @@ export class GameFacade {
     if (gameOptions == null) {
       throw new Error("loadNextProblem called before startNewGame");
     }
+    this.gameState.problemNumber.update(value => value + 1);
     const problemNumber = this.gameState.problemNumber();
     this.gameApi.problem({gameOptions, problemNumber}).subscribe(guestProblemResponse => {
-      this.gameState.problemNumber.update(value => value + 1);
       this.gameState.statement.set(guestProblemResponse.statement);
       this.gameState.seed.set(guestProblemResponse.seed);
       this.gameState.waitingForAnswer.set(true);

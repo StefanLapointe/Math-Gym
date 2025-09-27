@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GameFacade } from '../../math-problems/game-facade';
-import { GameState } from '../../math-problems/game-state';
+import { GameFacade } from '../../game/game-facade';
+import { GameState } from '../../game/game-state';
 
 @Component({
   selector: 'app-endless-mode-page',

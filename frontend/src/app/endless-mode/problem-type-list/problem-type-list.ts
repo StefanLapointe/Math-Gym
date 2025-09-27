@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ProblemTypeButton } from "../problem-type-button/problem-type-button";
-import { ProblemTypeApi } from '../../math-problems/problem-api';
+import { ProblemTypeApi } from '../../game/problem-api';
 
 @Component({
   selector: 'app-problem-type-list',

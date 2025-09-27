@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ProblemTypeButton } from "../problem-type-button/problem-type-button";
-import { ProblemApi } from '../problem-api';
+import { ProblemTypeApi } from '../problem-api';
 
 @Component({
   selector: 'app-problem-type-list',
@@ -10,9 +10,9 @@ import { ProblemApi } from '../problem-api';
 })
 export class ProblemTypeList {
   problemTypes: string[] = [];
-  problemApi = inject(ProblemApi);
+  problemApi = inject(ProblemTypeApi);
   constructor() {
-    this.problemApi.listTypes().subscribe(problemTypes => {
+    this.problemApi.getProblemTypes().subscribe(problemTypes => {
       this.problemTypes = problemTypes;
     });
   }

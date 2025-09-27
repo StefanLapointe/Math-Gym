@@ -18,38 +18,13 @@ public class ProblemService {
         this.problemHandlerMap = problemHandlerMap;
     }
 
-    public Set<String> list() {
+    public Set<String> getProblemTypes() {
         return problemHandlerMap.keySet();
-    }
-
-    public ProblemStatement generate(String problemType) {
-        ProblemHandler problemHandler = problemHandlerMap.get(problemType);
-        Random random = new Random();
-        int seed = random.nextInt();
-        String statement = problemHandler.generateStatement(seed);
-        return new ProblemStatement(seed, statement);
     }
 
     public String generate(String problemType, int seed) {
         ProblemHandler problemHandler = problemHandlerMap.get(problemType);
         return problemHandler.generateStatement(seed);
-    }
-
-    public ProblemCorrection evaluate(ProblemResponse problemResponse) {
-        String problemType = problemResponse.getProblemType();
-        long seed = problemResponse.getSeed();
-        String response = problemResponse.getResponse();
-        ProblemHandler problemHandler = problemHandlerMap.get(problemType);
-        boolean isCorrect = problemHandler.isCorrect(seed, response);
-        String correction;
-        if (isCorrect) {
-            correction = "Correct!";
-        } else {
-            String format = "Incorrect: The correct answer is %s.";
-            String solution = problemHandler.generateSolution(seed);
-            correction = String.format(format, solution);
-        }
-        return new ProblemCorrection(isCorrect, correction);
     }
 
     public boolean isCorrect(String problemType, int seed, String attempt) {

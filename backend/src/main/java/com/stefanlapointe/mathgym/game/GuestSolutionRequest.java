@@ -1,6 +1,5 @@
-package com.stefanlapointe.mathgym.model;
+package com.stefanlapointe.mathgym.game;
 
-import com.stefanlapointe.mathgym.domain.GameOptions;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

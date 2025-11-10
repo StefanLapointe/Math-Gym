@@ -1,7 +1,7 @@
 package com.stefanlapointe.mathgym.endless;
 
-import com.stefanlapointe.mathgym.domain.GameModeHandler;
-import com.stefanlapointe.mathgym.domain.GameOptions;
+import com.stefanlapointe.mathgym.game.GameModeHandler;
+import com.stefanlapointe.mathgym.game.GameOptions;
 import org.springframework.stereotype.Component;
 
 @Component("endless")

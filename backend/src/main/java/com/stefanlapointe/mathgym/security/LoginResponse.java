@@ -1,4 +1,4 @@
-package com.stefanlapointe.mathgym.model;
+package com.stefanlapointe.mathgym.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

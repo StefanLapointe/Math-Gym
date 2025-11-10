@@ -1,13 +1,8 @@
-package com.stefanlapointe.mathgym.service;
+package com.stefanlapointe.mathgym.problem;
 
-import com.stefanlapointe.mathgym.domain.ProblemHandler;
-import com.stefanlapointe.mathgym.model.ProblemCorrection;
-import com.stefanlapointe.mathgym.model.ProblemResponse;
-import com.stefanlapointe.mathgym.model.ProblemStatement;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 @Service

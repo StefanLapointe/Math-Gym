@@ -1,18 +1,16 @@
-package com.stefanlapointe.mathgym.component;
+package com.stefanlapointe.mathgym.problem;
 
-import com.stefanlapointe.mathgym.domain.MultiplicationDivisionFact;
-import com.stefanlapointe.mathgym.domain.ProblemHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-@Component("multiplication")
-public class MultiplicationProblemHandler implements ProblemHandler {
+@Component("division")
+public class DivisionProblemHandler implements ProblemHandler {
     @Override
     public String generateStatement(long seed) {
         var fact = new MultiplicationDivisionFact(seed);
-        return String.format("What is the value of %d * %d?",
-                fact.getOperand1(),
+        return String.format("What is the value of %d / %d?",
+                fact.getProduct(),
                 fact.getOperand2());
     }
 
@@ -24,6 +22,6 @@ public class MultiplicationProblemHandler implements ProblemHandler {
     @Override
     public String generateSolution(long seed) {
         var fact = new MultiplicationDivisionFact(seed);
-        return "" + fact.getProduct();
+        return "" + fact.getOperand1();
     }
 }

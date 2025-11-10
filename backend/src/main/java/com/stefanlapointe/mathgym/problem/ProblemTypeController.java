@@ -1,9 +1,5 @@
-package com.stefanlapointe.mathgym.controller;
+package com.stefanlapointe.mathgym.problem;
 
-import com.stefanlapointe.mathgym.model.ProblemCorrection;
-import com.stefanlapointe.mathgym.model.ProblemResponse;
-import com.stefanlapointe.mathgym.model.ProblemStatement;
-import com.stefanlapointe.mathgym.service.ProblemService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;

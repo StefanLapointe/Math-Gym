@@ -1,12 +1,9 @@
-package com.stefanlapointe.mathgym.service;
+package com.stefanlapointe.mathgym.game;
 
-import com.stefanlapointe.mathgym.domain.GameModeHandler;
-import com.stefanlapointe.mathgym.domain.GameOptions;
-import com.stefanlapointe.mathgym.model.GuestSolutionResponse;
+import com.stefanlapointe.mathgym.problem.ProblemService;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class GameService {

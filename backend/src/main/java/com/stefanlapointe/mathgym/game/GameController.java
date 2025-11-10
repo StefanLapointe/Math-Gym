@@ -1,17 +1,10 @@
-package com.stefanlapointe.mathgym.controller;
+package com.stefanlapointe.mathgym.game;
 
-import com.stefanlapointe.mathgym.domain.GameOptions;
-import com.stefanlapointe.mathgym.model.GuestProblemRequest;
-import com.stefanlapointe.mathgym.model.GuestProblemResponse;
-import com.stefanlapointe.mathgym.model.GuestSolutionRequest;
-import com.stefanlapointe.mathgym.model.GuestSolutionResponse;
-import com.stefanlapointe.mathgym.service.GameService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.Random;
 
 @RestController

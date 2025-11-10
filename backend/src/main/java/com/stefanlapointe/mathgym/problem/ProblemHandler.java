@@ -1,4 +1,4 @@
-package com.stefanlapointe.mathgym.domain;
+package com.stefanlapointe.mathgym.problem;
 
 public interface ProblemHandler {
     String generateStatement(long seed);

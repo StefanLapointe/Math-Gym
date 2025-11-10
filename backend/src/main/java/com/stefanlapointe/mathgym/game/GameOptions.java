@@ -1,4 +1,4 @@
-package com.stefanlapointe.mathgym.domain;
+package com.stefanlapointe.mathgym.game;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

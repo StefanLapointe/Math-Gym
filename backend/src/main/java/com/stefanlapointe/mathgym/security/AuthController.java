@@ -1,8 +1,5 @@
-package com.stefanlapointe.mathgym.controller;
+package com.stefanlapointe.mathgym.security;
 
-import com.stefanlapointe.mathgym.model.AuthStateResponse;
-import com.stefanlapointe.mathgym.model.LoginRequest;
-import com.stefanlapointe.mathgym.model.LoginResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

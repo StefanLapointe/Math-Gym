@@ -1,4 +1,4 @@
-package com.stefanlapointe.mathgym.controller;
+package com.stefanlapointe.mathgym.security;
 
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;

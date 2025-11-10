@@ -1,7 +1,5 @@
-package com.stefanlapointe.mathgym.component;
+package com.stefanlapointe.mathgym.problem;
 
-import com.stefanlapointe.mathgym.domain.AdditionSubtractionFact;
-import com.stefanlapointe.mathgym.domain.ProblemHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;

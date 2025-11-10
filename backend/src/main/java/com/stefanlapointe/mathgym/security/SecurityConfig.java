@@ -1,4 +1,4 @@
-package com.stefanlapointe.mathgym;
+package com.stefanlapointe.mathgym.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +44,7 @@ public class SecurityConfig {
         return repository;
     }
 
+    // This is used by AuthController for the custom login endpoint
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

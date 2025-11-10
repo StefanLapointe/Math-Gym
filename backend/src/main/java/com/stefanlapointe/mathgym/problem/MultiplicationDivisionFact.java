@@ -1,4 +1,4 @@
-package com.stefanlapointe.mathgym.domain;
+package com.stefanlapointe.mathgym.problem;
 
 import lombok.Getter;
 
@@ -12,8 +12,8 @@ public class MultiplicationDivisionFact {
 
     public MultiplicationDivisionFact(long seed) {
         Random random = new Random(seed);
-        operand1 = random.nextInt(10);
-        operand2 = random.nextInt(10);
+        operand1 = random.nextInt(1, 10);
+        operand2 = random.nextInt(1, 10);
         product = operand1 * operand2;
     }
 }

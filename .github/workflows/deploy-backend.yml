@@ -53,5 +53,5 @@ jobs:
             docker load -i ~/mathgym.tar
             docker run --name mathgym -p 8080:8080 \
               -e DB_URL -e DB_USERNAME -e DB_PASSWORD \
-              -d --restart=unless-stopped -m 600M mathgym
+              -d --restart=unless-stopped -m 720M mathgym
             rm ~/mathgym.tar

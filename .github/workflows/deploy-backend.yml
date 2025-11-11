@@ -38,13 +38,20 @@ jobs:
           strip_components: 1
       - name: Replace old files with new files
         uses: appleboy/ssh-action@v1.2.2
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
+          envs: DB_URL,DB_USERNAME,DB_PASSWORD
           script: |
             docker stop mathgym || true
             docker rm mathgym || true
             docker load -i ~/mathgym.tar
-            docker run --name mathgym -p 8080:8080 -d --restart=unless-stopped -m 600M mathgym
+            docker run --name mathgym -p 8080:8080 \
+              -e DB_URL -e DB_USERNAME -e DB_PASSWORD \
+              -d --restart=unless-stopped -m 600M mathgym
             rm ~/mathgym.tar

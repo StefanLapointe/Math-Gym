@@ -12,6 +12,12 @@ export class AuthApi {
   logout() {
     return this.http.post<void>("/api/auth/logout", null);
   }
+  register(username: string, password: string) {
+    return this.http.post<{success: boolean}>("/api/auth/register", {username, password});
+  }
+  terminate() {
+    return this.http.delete<{success: boolean}>("/api/auth/terminate");
+  }
   state() {
     return this.http.get<{authenticated: boolean, username: string}>("/api/auth/state");
   }

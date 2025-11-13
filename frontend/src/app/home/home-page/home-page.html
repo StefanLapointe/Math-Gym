@@ -1,11 +1,13 @@
 @if (authState.authenticated()) {
     <p>Logged in as {{authState.username()}}.</p>
+    <button type="button" (click)="this.router.navigate(['/settings'])">Settings</button>
     <button type="button" (click)="authState.logout()">Log out</button>
 } @else {
     <p>Logged out.</p>
     <button type="button" (click)="this.router.navigate(['/login'])">Log in</button>
+    <button type="button" (click)="this.router.navigate(['/register'])">Create account</button>
 }
-(Account creation is not yet implemented. Login is not necessary to play.)
+(Login is not necessary to play.)
 <p>Endless mode:</p>
 <app-problem-type-list />
 <p>Custom routines:</p>

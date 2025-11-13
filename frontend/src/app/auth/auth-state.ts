@@ -31,4 +31,19 @@ export class AuthState {
       this.username.set("");
     })
   }
+  register(username: string, password: string) {
+    this.authApi.register(username, password).subscribe(({success}) => {
+      if (success) {
+        this.login(username, password);
+      }
+    });
+  }
+  terminate() {
+    this.authApi.terminate().subscribe(({success}) => {
+      if (success) {
+        this.logout();
+        this.router.navigate(["/"]);
+      }
+    });
+  }
 }

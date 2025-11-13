@@ -2,35 +2,30 @@ package com.stefanlapointe.mathgym.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final AuthenticationManager authenticationManager;
-    private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
+    private final AuthService authService;
+    private final SecurityContextRepository securityContextRepository;
 
-    public AuthController(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+        securityContextRepository = new HttpSessionSecurityContextRepository();
     }
 
     @PostMapping("/login")
     LoginResponse login(@RequestBody LoginRequest loginRequest, HttpServletRequest request, HttpServletResponse response) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
-        var token = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication authentication = authenticationManager.authenticate(token);
-        SecurityContext context = SecurityContextHolder.getContext();
-        context.setAuthentication(authentication);
-        securityContextRepository.saveContext(context, request, response);
+        SecurityContext securityContext = authService.attemptLogin(username, password);
+        securityContextRepository.saveContext(securityContext, request, response);
         return new LoginResponse(true);
     }
 
@@ -38,12 +33,22 @@ public class AuthController {
 
     @GetMapping("/state")
     AuthStateResponse state() {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken) {
-            return new AuthStateResponse(false, "");
-        }
-        String username = authentication.getName();
-        return new AuthStateResponse(true, username);
+        Optional<String> maybeUsername = authService.getUsername();
+        return maybeUsername.map(s -> new AuthStateResponse(true, s))
+                .orElseGet(() -> new AuthStateResponse(false, ""));
+    }
+
+    @PostMapping("/register")
+    RegistrationResponse register(@RequestBody RegistrationRequest registrationRequest) {
+        String username = registrationRequest.getUsername();
+        String password = registrationRequest.getPassword();
+        boolean success = authService.attemptRegistration(username, password);
+        return new RegistrationResponse(success);
+    }
+
+    @DeleteMapping("/terminate")
+    TerminationResponse terminate() {
+        boolean success = authService.attemptTermination();
+        return new TerminationResponse(success);
     }
 }

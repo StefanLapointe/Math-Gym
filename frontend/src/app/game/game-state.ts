@@ -14,4 +14,5 @@ export class GameState {
   readonly waitingForAnswer = signal(false);
   readonly correct = signal(false);
   readonly correction = signal("");
+  readonly gameId = signal("");
 }

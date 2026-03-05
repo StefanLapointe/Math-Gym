@@ -26,7 +26,12 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll())
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/csrf/**").permitAll()
+                        .requestMatchers("/api/games/guest/**").permitAll()
+                        .requestMatchers("/api/problem-types/**").permitAll()
+                        .requestMatchers("/api/routines/**").permitAll()
+                        .anyRequest().authenticated())
                 .logout(logout -> logout
                         .logoutUrl("/api/auth/logout")
                         .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()));

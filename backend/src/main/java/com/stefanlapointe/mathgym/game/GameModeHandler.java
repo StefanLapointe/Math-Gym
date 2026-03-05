@@ -1,5 +1,7 @@
 package com.stefanlapointe.mathgym.game;
 
+import java.util.UUID;
+
 /*
  * This interface allows the strategy pattern to be used for game modes.
  * The decideProblemType() method is run when a user requests a new problem.
@@ -9,4 +11,5 @@ package com.stefanlapointe.mathgym.game;
 public interface GameModeHandler {
     String decideProblemType(GameOptions gameOptions, int problemNumber);
     boolean decideGameOver(GameOptions gameOptions, int problemNumber, int correctAnswers);
+    UUID newGame(GameOptions gameOptions, int seed);
 }

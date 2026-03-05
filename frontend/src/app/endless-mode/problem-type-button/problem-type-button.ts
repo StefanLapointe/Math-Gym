@@ -1,5 +1,7 @@
 import { Component, inject, input, } from '@angular/core';
-import { Router } from '@angular/router';
+import { GameOptions } from '../../game/game-api';
+import { GameFacade } from '../../game/game-facade';
+import { AuthState } from '../../auth/auth-state';
 
 @Component({
   selector: 'app-problem-type-button',
@@ -8,9 +10,14 @@ import { Router } from '@angular/router';
   styleUrl: './problem-type-button.css'
 })
 export class ProblemTypeButton {
-  private router = inject(Router);
+  private gameFacade = inject(GameFacade);
+  private authState = inject(AuthState);
   problemType = input("");
-  startGame() {
-    this.router.navigate(["/training/endless", this.problemType()]);
+  startEndlessMode() {
+    const gameOptions: GameOptions = {
+      gameMode: "endless",
+      problemType: this.problemType()
+    };
+    this.gameFacade.startNewGame(gameOptions, !this.authState.authenticated());
   }
 }

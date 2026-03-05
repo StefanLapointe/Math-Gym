@@ -7,13 +7,13 @@ import { RegistrationPage } from './auth/registration-page/registration-page';
 import { TermsPage } from './legal/terms-page/terms-page';
 import { PrivacyPage } from './legal/privacy-page/privacy-page';
 import { SettingsPage } from './settings/settings-page/settings-page';
+import { TrainingPage } from './game/training-page/training-page';
 
 export const routes: Routes = [
     {path: "", component: HomePage},
     {path: "login", component: LoginPage},
     {path: "register", component: RegistrationPage},
-    {path: "training/endless/:problemType", component: EndlessModePage},
-    {path: "training/routine/:routineId", component: RoutineModePage},
+    {path: "training/:gameId", component: TrainingPage},
     {path: "terms", component: TermsPage},
     {path: "privacy", component: PrivacyPage},
     {path: "settings", component: SettingsPage}

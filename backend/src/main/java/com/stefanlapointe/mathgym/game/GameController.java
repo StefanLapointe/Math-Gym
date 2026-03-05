@@ -1,11 +1,12 @@
 package com.stefanlapointe.mathgym.game;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.stefanlapointe.mathgym.user.UserDetailsImpl;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/games")
@@ -34,5 +35,46 @@ public class GameController {
         int seed = guestSolutionRequest.getSeed();
         String attempt = guestSolutionRequest.getAttempt();
         return gameService.correct(gameOptions, problemNumber, correctAnswers, seed, attempt);
+    }
+
+    // No "UserProblemRequest" is needed since the game state will come from DB.
+    @GetMapping("/{gameId}/problem")
+    UserProblemResponse userProblem(@PathVariable UUID gameId, @AuthenticationPrincipal UserDetailsImpl principal) {
+        Long userId = principal.getId();
+        return gameService.generate(gameId, userId);
+    }
+
+    @PostMapping("/{gameId}/solution")
+    UserSolutionResponse userSolution(@PathVariable UUID gameId, @AuthenticationPrincipal UserDetailsImpl principal, @RequestBody UserSolutionRequest userSolutionRequest) {
+        Long userId = principal.getId();
+        String attempt = userSolutionRequest.getAttempt();
+        return gameService.correct(gameId, userId, attempt);
+    }
+
+    // Start a new game
+    @PostMapping("")
+    NewGameResponse newGame(@RequestBody NewGameRequest newGameRequest) {
+        GameOptions gameOptions = newGameRequest.getGameOptions();
+        int seed = random.nextInt();
+        UUID gameId = gameService.newGame(gameOptions, seed);
+        return new NewGameResponse(gameId.toString());
+    }
+
+    // Get a list of all ongoing games
+    @GetMapping("")
+    List<UUID> games(@AuthenticationPrincipal UserDetailsImpl principal) {
+        Long userId = principal.getId();
+        return gameService.getGameIds(userId);
+    }
+
+    // Obtain the state of an ongoing game
+    @GetMapping("/{gameId}")
+    GameStateResponse gameState(@PathVariable UUID gameId, @AuthenticationPrincipal UserDetailsImpl principal) {
+        Long userId = principal.getId();
+        GameState gameState = gameService.getGameState(gameId, userId);
+        GameOptions gameOptions = gameState.getGameOptions();
+        int problemNumber = gameState.getProblemNumber();
+        int correctAnswers = gameState.getCorrectAnswers();
+        return new GameStateResponse(gameOptions, problemNumber, correctAnswers);
     }
 }

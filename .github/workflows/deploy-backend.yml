@@ -53,7 +53,7 @@ jobs:
             docker rm mathgym || true
             docker load -i ~/mathgym.tar
             docker run --name mathgym --network=host \
-	      -e SPRING_PROFILES_ACTIVE=prod \
+              -e SPRING_PROFILES_ACTIVE=prod \
               -e DB_URL -e DB_USERNAME -e DB_PASSWORD \
               -d --restart=unless-stopped -m 720M mathgym
             rm ~/mathgym.tar

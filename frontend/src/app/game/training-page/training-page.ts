@@ -11,9 +11,9 @@ import { RoutineModePage } from "../../routine-mode/routine-mode-page/routine-mo
   styleUrl: './training-page.css'
 })
 export class TrainingPage implements OnInit {
-  private route = inject(ActivatedRoute);
-  private gameFacade = inject(GameFacade);
-  protected gameMode = signal("");
+  private readonly route = inject(ActivatedRoute);
+  private readonly gameFacade = inject(GameFacade);
+  protected readonly gameMode = signal("");
   ngOnInit() {
     this.route.params.subscribe((params) => {
       const gameId = params["gameId"];

@@ -10,9 +10,9 @@ import { AuthState } from '../../auth/auth-state';
   styleUrl: './problem-type-button.css'
 })
 export class ProblemTypeButton {
-  private gameFacade = inject(GameFacade);
-  private authState = inject(AuthState);
-  problemType = input("");
+  private readonly gameFacade = inject(GameFacade);
+  private readonly authState = inject(AuthState);
+  readonly problemType = input("");
   startEndlessMode() {
     const gameOptions: GameOptions = {
       gameMode: "endless",

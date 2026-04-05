@@ -26,31 +26,31 @@ export class RoutineModePage {
   });
   private guestMode = false;
   ngOnInit() {
-      this.route.params.subscribe(params => {
-        const gameId = params["gameId"];
-        this.guestMode = gameId == "guest";
-        if (this.guestMode) {
-          this.route.queryParams.subscribe(queryParams => {
-            const routineId = queryParams["routineId"];
-            const gameOptions: GameOptions = {
-              gameMode: "routine",
-              routineId
-            };
-            this.gameFacade.initialize(gameOptions);
-            this.routineApi.getRoutine(routineId).subscribe(routine => {
-              this.length.set(routine.length);
-            });
+    this.route.params.subscribe(params => {
+      const gameId = params["gameId"];
+      this.guestMode = gameId == "guest";
+      if (this.guestMode) {
+        this.route.queryParams.subscribe(queryParams => {
+          const routineId = queryParams["routineId"];
+          const gameOptions: GameOptions = {
+            gameMode: "routine",
+            routineId
+          };
+          this.gameFacade.initialize(gameOptions);
+          this.routineApi.getRoutine(routineId).subscribe(routine => {
+            this.length.set(routine.length);
           });
-        } else {
-          const gameOptions = this.gameState.gameOptions();
-          if (gameOptions?.gameMode == "routine") {
-            this.routineApi.getRoutine(gameOptions.routineId).subscribe(routine => {
-              this.length.set(routine.length);
-            });
-          }
+        });
+      } else {
+        const gameOptions = this.gameState.gameOptions();
+        if (gameOptions?.gameMode == "routine") {
+          this.routineApi.getRoutine(gameOptions.routineId).subscribe(routine => {
+            this.length.set(routine.length);
+          });
         }
-      });
-    }
+      }
+    });
+  }
   protected next() {
     this.gameFacade.loadNextProblem(this.guestMode);
     const answerBox = document.getElementById("answer-box") as HTMLInputElement;

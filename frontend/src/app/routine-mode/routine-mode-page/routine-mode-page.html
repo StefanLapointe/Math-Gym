@@ -1,10 +1,9 @@
 @if (gameState.gameOver()) {
     <h2>Routine complete!</h2>
-} @else {
-    <p>Problem {{gameState.problemNumber()}} / {{length()}}: {{gameState.statement()}}</p>
-    <app-answer-input/>
-    @if (!gameState.waitingForAnswer()) {
-        <p>{{gameState.correction()}}</p>
-    }
+}
+<p>Problem {{gameState.problemNumber()}} / {{length()}}: {{gameState.statement()}}</p>
+<app-answer-input/>
+@if (!gameState.waitingForAnswer()) {
+    <p>{{gameState.correction()}}</p>
 }
 <p>Score: {{gameState.correctAnswers()}} / {{totalAnswers()}} = {{score()}}%</p>

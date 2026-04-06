@@ -1,11 +1,10 @@
 @if (gameState.gameOver()) {
     <h2>Game over!</h2>
-} @else {
-    <p>Lives: {{lives()}}</p>
-    <p>#{{gameState.problemNumber()}}. {{gameState.statement()}}</p>
-    <app-answer-input/>
-    @if (!gameState.waitingForAnswer()) {
-        <p>{{gameState.correction()}}</p>
-    }
+}
+<p>Lives: {{lives()}}</p>
+<p>#{{gameState.problemNumber()}}. {{gameState.statement()}}</p>
+<app-answer-input/>
+@if (!gameState.waitingForAnswer()) {
+    <p>{{gameState.correction()}}</p>
 }
 <p>Score: {{gameState.correctAnswers()}}</p>

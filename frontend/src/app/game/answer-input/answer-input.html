@@ -1,0 +1,4 @@
+<input id="answer-box" placeholder="answer">
+<button (click)="gameState.waitingForAnswer() ? submit() : next()">
+    {{gameState.waitingForAnswer() ? "Submit" : "Next"}}
+</button>

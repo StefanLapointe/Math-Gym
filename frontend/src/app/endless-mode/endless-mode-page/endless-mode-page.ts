@@ -1,12 +1,13 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AnswerInput } from '../../game/answer-input/answer-input';
 import { GameFacade } from '../../game/game-facade';
 import { GameState } from '../../game/game-state';
 import { GameOptions } from '../../game/game-api';
 
 @Component({
   selector: 'app-endless-mode-page',
-  imports: [],
+  imports: [AnswerInput],
   templateUrl: './endless-mode-page.html',
   styleUrl: './endless-mode-page.css'
 })
@@ -19,12 +20,11 @@ export class EndlessModePage implements OnInit {
     if (this.gameState.waitingForAnswer()) return 4 - difference;
     return 3 - difference;
   });
-  private guestMode = false;
   ngOnInit() {
     this.route.params.subscribe(params => {
       const gameId = params["gameId"];
-      this.guestMode = gameId == "guest";
-      if (this.guestMode) {
+      this.gameState.guestMode.set(gameId == "guest");
+      if (this.gameState.guestMode()) {
         this.route.queryParams.subscribe(queryParams => {
           const problemType = queryParams["problemType"];
           const gameOptions: GameOptions = {
@@ -35,15 +35,5 @@ export class EndlessModePage implements OnInit {
         });
       }
     });
-  }
-  protected next() {
-    this.gameFacade.loadNextProblem(this.guestMode);
-    const answerBox = document.getElementById("answer-box") as HTMLInputElement;
-    answerBox.value = "";
-  }
-  protected submit() {
-    const answerBox = document.getElementById("answer-box") as HTMLInputElement;
-    const attempt = answerBox.value;
-    this.gameFacade.submitAttempt(attempt, this.guestMode);
   }
 }

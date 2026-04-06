@@ -15,4 +15,5 @@ export class GameState {
   readonly correct = signal(false);
   readonly correction = signal("");
   readonly gameId = signal("");
+  readonly guestMode = signal(false);
 }

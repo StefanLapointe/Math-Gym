@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AnswerInput } from '../../game/answer-input/answer-input';
 import { GameFacade } from '../../game/game-facade';
 import { GameState } from '../../game/game-state';
 import { RoutineApi } from '../routine-api';
@@ -7,7 +8,7 @@ import { GameOptions } from '../../game/game-api';
 
 @Component({
   selector: 'app-routine-mode-page',
-  imports: [],
+  imports: [AnswerInput],
   templateUrl: './routine-mode-page.html',
   styleUrl: './routine-mode-page.css'
 })
@@ -24,12 +25,11 @@ export class RoutineModePage {
   protected readonly score = computed(() => {
     return 100 * this.gameState.correctAnswers() / this.totalAnswers();
   });
-  private guestMode = false;
   ngOnInit() {
     this.route.params.subscribe(params => {
       const gameId = params["gameId"];
-      this.guestMode = gameId == "guest";
-      if (this.guestMode) {
+      this.gameState.guestMode.set(gameId == "guest");
+      if (this.gameState.guestMode()) {
         this.route.queryParams.subscribe(queryParams => {
           const routineId = queryParams["routineId"];
           const gameOptions: GameOptions = {
@@ -50,15 +50,5 @@ export class RoutineModePage {
         }
       }
     });
-  }
-  protected next() {
-    this.gameFacade.loadNextProblem(this.guestMode);
-    const answerBox = document.getElementById("answer-box") as HTMLInputElement;
-    answerBox.value = "";
-  }
-  protected submit() {
-    const answerBox = document.getElementById("answer-box") as HTMLInputElement;
-    const attempt = answerBox.value;
-    this.gameFacade.submitAttempt(attempt, this.guestMode);
   }
 }

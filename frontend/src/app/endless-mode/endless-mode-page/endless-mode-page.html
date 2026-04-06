@@ -3,10 +3,7 @@
 } @else {
     <p>Lives: {{lives()}}</p>
     <p>#{{gameState.problemNumber()}}. {{gameState.statement()}}</p>
-    <input id="answer-box" placeholder="answer">
-    <button (click)="gameState.waitingForAnswer() ? submit() : next()">
-        {{gameState.waitingForAnswer() ? "Submit" : "Next"}}
-    </button>
+    <app-answer-input/>
     @if (!gameState.waitingForAnswer()) {
         <p>{{gameState.correction()}}</p>
     }

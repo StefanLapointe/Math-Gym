@@ -1,0 +1,12 @@
+@if (savedGames() != null) {
+    <p>Saved games:</p>
+    <ul>
+        @for (savedGame of savedGames(); track $index) {
+            <li>
+	        <button (click)="resume(savedGame.gameId)">
+		    {{`${savedGame.gameState.gameOptions.gameMode} mode game from ${computeAge(savedGame.gameState)} ago`}}
+		</button>
+	    </li>
+        }
+    </ul>
+}

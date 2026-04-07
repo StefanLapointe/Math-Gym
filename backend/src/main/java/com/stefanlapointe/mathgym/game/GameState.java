@@ -5,20 +5,28 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "game_states")
 @Inheritance(strategy = InheritanceType.JOINED)
 abstract public class GameState implements HasGameMode {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(nullable = false)
+    @CreatedDate
+    private Instant createdAt;
 
     @Column(nullable = false)
     private Integer seed;

@@ -66,7 +66,8 @@ export interface NewGameResponse {
 export interface GameStateResponse {
   gameOptions: GameOptions,
   problemNumber: number,
-  correctAnswers: number
+  correctAnswers: number,
+  timestampMillis: number
 }
 
 @Injectable({

@@ -75,6 +75,7 @@ public class GameController {
         GameOptions gameOptions = gameState.getGameOptions();
         int problemNumber = gameState.getProblemNumber();
         int correctAnswers = gameState.getCorrectAnswers();
-        return new GameStateResponse(gameOptions, problemNumber, correctAnswers);
+	long timestampMillis = gameState.getCreatedAt().toEpochMilli();
+        return new GameStateResponse(gameOptions, problemNumber, correctAnswers, timestampMillis);
     }
 }

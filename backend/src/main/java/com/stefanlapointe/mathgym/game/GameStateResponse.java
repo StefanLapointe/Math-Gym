@@ -9,4 +9,5 @@ public class GameStateResponse {
     private GameOptions gameOptions;
     private int problemNumber;
     private int correctAnswers;
+    private long timestampMillis;
 }
